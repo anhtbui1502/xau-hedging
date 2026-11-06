@@ -32,7 +32,7 @@ def main(out, start, end, sym="XAUUSD"):
         with zipfile.ZipFile(io.BytesIO(raw)) as z:
             with z.open(z.namelist()[0]) as fh:
                 df = pd.read_csv(fh, usecols=["Timestamp", "Bid", "Ask"])
-        ts = pd.to_datetime(df.Timestamp, format="%Y-%m-%d %H:%M:%S.%fZ").astype("int64") // 1_000_000
+        ts = pd.to_datetime(df.Timestamp, format="%Y-%m-%d %H:%M:%S.%fZ").astype("datetime64[ms]").astype("int64")
         np.savez(f, ts=ts.values, bid=df.Bid.values, ask=df.Ask.values)
         sp = (df.Ask - df.Bid)
         print(f"{y}-{m:02d}: {len(df):,} tick, spread trung vị {sp.median():.3f}  p95 {sp.quantile(.95):.3f}", flush=True)

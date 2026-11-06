@@ -25,3 +25,13 @@ Năm 2025–2026 biên độ nến M1 trung vị ~1–2 $ ≈ d, nên kết qu�
 có lợi cho lưới (đo trên random walk: ~+0,19 $/chu kỳ) → kết quả thật có thể còn tệ hơn.
 
 ## Kết quả chính: xem `results_n3_d2.txt`
+
+## Backtest theo tick thật (Exness, 2023-01 → 2026-10, 222 triệu tick)
+
+```bash
+python backtest/fetch_exness_ticks.py ticks/ 2023-01 2026-10
+cd backtest && python grid_tick.py ../ticks
+```
+
+Kết quả: `results_tick_exness_n3_d2.txt`. Lỗ mọi năm; spread thực tế khi khớp lệnh trung bình 0,177 $/lệnh
+(cao hơn spread trung vị 0,112 $ vì lưới khớp nhiều lúc biến động). Lỗ 1 chu kỳ tệ nhất −125 $ (gap cuối tuần).

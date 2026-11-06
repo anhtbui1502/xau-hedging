@@ -19,7 +19,7 @@ from numba import njit
 @njit(cache=True)
 def sim(ts, bid, ask, d, n, lot_oz, swap_long, swap_short, commission, hour_ok, bal0):
     N = len(ts)
-    maxc = N // 2 + 10
+    maxc = N // 20 + 10   # 1 chu kỳ cần giá đi >= 3d, luôn qua nhiều tick
     c_start = np.empty(maxc, np.int64); c_end = np.empty(maxc, np.int64)
     c_dir = np.empty(maxc, np.int8); c_k = np.empty(maxc, np.int8)
     c_net = np.empty(maxc, np.float64); c_spread = np.empty(maxc, np.float64)
@@ -91,8 +91,7 @@ def load(tick_dir, start=None, end=None):
         parts.append((z["ts"], z["bid"], z["ask"]))
     ts = np.concatenate([p[0] for p in parts]); bid = np.concatenate([p[1] for p in parts])
     ask = np.concatenate([p[2] for p in parts])
-    o = np.argsort(ts, kind="stable")
-    return ts[o], bid[o], ask[o]
+    return ts, bid, ask   # các tháng đã theo thứ tự thời gian
 
 
 def run(ts, bid, ask, d=2.0, n=3, lot_oz=1.0, swap_long=-0.6, swap_short=0.2, commission=0.0,
