@@ -76,7 +76,7 @@ def simulate(ts, o, h, l, c, d, n, spread, roll_mult, swap_long, swap_short,
             b = (cur_day_h - 21) // 24
             for m in range(a + 1, b + 1):
                 hm = m * 24 + 21
-                dow = ((hm // 24) + 4) % 7  # 0=thứ 2 (1970-01-01 là thứ 5)
+                dow = ((hm // 24) + 3) % 7  # 0=thứ 2 (1970-01-01 là thứ 5)
                 mult = 3.0 if dow == 2 else 1.0
                 swp += mult * lot_oz * (U * swap_long + D * swap_short)
 
